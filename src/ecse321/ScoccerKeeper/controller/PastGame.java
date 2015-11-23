@@ -1,46 +1,43 @@
 package ecse321.ScoccerKeeper.controller;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Calendar;
+
 /**
  * 
  * @author Omar
- * 
- * This class manages the events of a lives game
- *
+ * This class updates the teams and the players' records as a results 
+ * of  past game
  */
-public class liveGame implements gameKeeper {
+public class PastGame implements GameKeeper {
 	private Team teamOne;
 	private Team teamTwo;
-	private LocalTime startTime;
-	private LocalDate dayOfGame;
+	private League league;
+	private Calendar startTime;
+	private Calendar gameDay;
 	private int teamOneGoals;
 	private int teamTwoGoals;
-	
+
 	/**
 	 * 
+	 * @param league
 	 * @param teamone
 	 * @param teamtwo
-	 * two teams that are playing the game passed from the controller
-	 * Selected by the user
+	 * @param Day
+	 * @param Time
+	 * 
+	 * Past game mode differs than live game mode in the way the timing is set up
+	 * Here the timing is inputed by the user
 	 * 
 	 */
-	
-	public liveGame(Team teamone, Team teamtwo) {
-		this.teamOne=teamone;
-		this.teamTwo=teamtwo;
-		startTime=LocalTime.now();
-		dayOfGame=LocalDate.now();
+
+	public PastGame(League league, Team teamOne, Team teamTwo,  Calendar day, Calendar time) {
+		this.teamOne=teamOne;
+		this.teamTwo=teamTwo;
+		this.league=league;
+		this.startTime=time;
+		this.gameDay=day;
 	}
-	/**
-	 * add shots to the player record
-	 * If the shot is goal, it adds it to the game score
-	 */
-	
+
 	public void addShots(Shot shot, Player player, Team team) {
 		player.addShot(shot);
 		if(shot==Shot.Goal) {
@@ -50,18 +47,15 @@ public class liveGame implements gameKeeper {
 				teamTwoGoals++;
 		}	
 	}
-	
-	
+
 	public void addInfractions(Infraction infraction, Player player) {
 		player.addInfraction(infraction);
 	}
-	
+
 	/**
-	 * When the user terminate the game
-	 * This method is clalled to display the final result 
-	 * it also updates the team record
+	 * returns the results of a game hwne the user terminates the session
+	 * upadates the teams reacords
 	 */
-	
 	public int[] gameResults() {
 		int[] result=new int[2];
 		//team one: team on left hand side of the view
@@ -79,17 +73,26 @@ public class liveGame implements gameKeeper {
 		}
 		return result;
 	}
-	//Following methods are meant to display golas on the view
-	public int teamOneGoals () {
+
+	//Following methods are meant to display goals on the view
+	public int getTeamOneGoals() {
 		return teamOneGoals;
 	}
-	public int teamTwoGoals () {
+
+	public int getTeamTwoGoals() {
 		return teamTwoGoals;
 	}
+
+	public League getLeague(){
+		return this.league;
+	}
+
+	public Calendar getGameDay(){
+		return this.gameDay;
+	}
+
+	public Calendar getStartTime(){
+		return this.startTime;
+	}
 }
-	
-		
-	
-
-
 
