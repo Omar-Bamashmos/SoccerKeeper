@@ -1,6 +1,5 @@
 package ecse321.ScoccerKeeper.controller;
 
-import java.awt.List;
 import java.util.ArrayList;
 
 /**
@@ -11,32 +10,34 @@ import java.util.ArrayList;
  *
  */
 public class Player {
-	private  String Name;
-	private int jerseynumber;
-	private static String Nationality;
+	private  String name;
+	private int jerseyNumber;
+	private String nationality;
 	private ArrayList<Shot> shots= new ArrayList<>();
 	private ArrayList <Infraction>infractions= new ArrayList<>();
-	
-	public Player (String namePlayer, int JN, String nationality) {
-		this.Name=namePlayer;
-		this.jerseynumber=JN;
-		this.Nationality=nationality;
+
+	public Player (String namePlayer, int jerseyNumber, String nationality) {
+		this.name=namePlayer;
+		this.jerseyNumber=jerseyNumber;
+		this.nationality=nationality;
 	}
+
 	/**
 	 * 
 	 * @return player's Name
 	 */
 	public String getName() {
-		return Name;
+		return this.name;
 	}
-	
+
 	/**
 	 * 
 	 * @return player's jersey number
 	 */
-	public int getJN() {
-		return jerseynumber;
+	public int getJerseyNumber() {
+		return this.jerseyNumber;
 	}
+
 	/**
 	 * 
 	 * @param shot
@@ -45,6 +46,7 @@ public class Player {
 	public void addShot(Shot shot) {
 		shots.add(shot);
 	}
+
 	/**
 	 * 
 	 * @param infraction
@@ -52,8 +54,9 @@ public class Player {
 	 */
 	public void addInfraction(Infraction infraction) {
 		infractions.add(infraction);
-		
+
 	}
+
 	/**
 	 * 
 	 * @return list of shots
@@ -61,6 +64,7 @@ public class Player {
 	public ArrayList<Shot> getShots(){
 		return shots;
 	}
+
 	/**
 	 * 
 	 * @return list of infractions
@@ -68,6 +72,7 @@ public class Player {
 	public ArrayList<Infraction> getInfractions() {
 		return infractions;
 	}
+
 	/**
 	 * 
 	 * @return number of goals
@@ -78,14 +83,14 @@ public class Player {
 		if(shots==null)
 			return 0;
 		else {
-		for(Shot shot:shots) {
-			if(shot.equals(Shot.Goal))
-				numOfGoals++;
-		}
+			for(Shot shot:shots) {
+				if(shot.equals(Shot.Goal))
+					numOfGoals++;
+			}
 		}
 		return numOfGoals;	
-			
 	}
+
 	/**
 	 * 
 	 * @return number of infractions in the player record
@@ -96,5 +101,9 @@ public class Player {
 		else
 			return this.infractions.size();
 	}
-	
+
+	public String getNationality(){
+		return this.nationality;
+	}
+
 }

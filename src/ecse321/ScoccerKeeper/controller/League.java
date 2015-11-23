@@ -12,39 +12,42 @@ import java.util.ArrayList;
  */
 
 public class League {
-	private  String leagueName;
+	private String leagueName;
 	private ArrayList<Team> teams=new ArrayList<>();
-	
-	
+
+
 	/**
 	 * 
 	 * @param leaguename
 	 * Create a new league is only allowed to the manager mode
 	 */
-	public League (String leaguename) {
-		this.leagueName=leaguename;
+	public League (String leagueName) {
+		this.leagueName=leagueName;
 	}
+
 	/**
 	 * 
 	 * @return league name
 	 */
-	public String getLeagueName () {
-		return leagueName;
+	public String getLeagueName() {
+		return this.leagueName;
 	}
+
 	/**
 	 * 
 	 * @param team
 	 * adding teams to the league teams list
 	 */
 	public void addTeams(Team team) {
-		teams.add(team);
+		this.teams.add(team);
 	}
+
 	/**
 	 * 
 	 * @return list of teams
 	 */
-	public ArrayList<Team> getTeams () {
-		return teams;
+	public ArrayList<Team> getTeams() {
+		return this.teams;
 	}
 
 }
