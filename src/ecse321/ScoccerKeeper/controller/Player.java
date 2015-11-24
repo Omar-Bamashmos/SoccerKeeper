@@ -14,7 +14,7 @@ public class Player {
 	private int jerseyNumber;
 	private String nationality;
 	private ArrayList<Shot> shots= new ArrayList<>();
-	private ArrayList <Infraction>infractions= new ArrayList<>();
+	private ArrayList<Infraction>infractions= new ArrayList<>();
 
 	public Player (String namePlayer, int jerseyNumber, String nationality) {
 		this.name=namePlayer;
@@ -84,7 +84,7 @@ public class Player {
 			return 0;
 		else {
 			for(Shot shot:shots) {
-				if(shot.equals(Shot.Goal))
+				if(shot.equals(Shot.GOAL))
 					numOfGoals++;
 			}
 		}

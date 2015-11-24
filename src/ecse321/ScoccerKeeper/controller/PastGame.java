@@ -40,7 +40,7 @@ public class PastGame implements GameKeeper {
 
 	public void addShots(Shot shot, Player player, Team team) {
 		player.addShot(shot);
-		if(shot==Shot.Goal) {
+		if(shot==Shot.GOAL) {
 			if(team==teamOne)
 				teamOneGoals++;
 			else

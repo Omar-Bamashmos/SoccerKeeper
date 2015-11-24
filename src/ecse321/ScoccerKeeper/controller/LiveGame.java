@@ -2,6 +2,7 @@ package ecse321.ScoccerKeeper.controller;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+
 /**
  * 
  * @author Omar
@@ -16,7 +17,6 @@ public class LiveGame implements GameKeeper {
 	private LocalDate gameDay;
 	private int teamOneGoals;
 	private int teamTwoGoals;
-
 	/**
 	 * 
 	 * @param teamone
@@ -39,7 +39,7 @@ public class LiveGame implements GameKeeper {
 
 	public void addShots(Shot shot, Player player, Team team) {
 		player.addShot(shot);
-		if(shot==Shot.Goal) {
+		if(shot==Shot.GOAL) {
 			if(team==teamOne)
 				teamOneGoals++;
 			else
