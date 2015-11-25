@@ -1,42 +1,41 @@
-package ecse321.ScoccerKeeper.controller;
+package ecse321.SoccerKeeper.controller;
 
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 /**
  * 
  * @author Omar
- * This class updates the teams and the players' records as a results 
- * of  past game
+ * 
+ * This class manages the events of a lives game
+ *
  */
-public class PastGame implements GameKeeper {
+public class LiveGame implements GameKeeper {
 	private Team teamOne;
 	private Team teamTwo;
-	private League league;
-	private Calendar startTime;
-	private Calendar gameDay;
+	private LocalTime startTime;
+	private LocalDate gameDay;
 	private int teamOneGoals;
 	private int teamTwoGoals;
-
 	/**
 	 * 
-	 * @param league
 	 * @param teamone
 	 * @param teamtwo
-	 * @param Day
-	 * @param Time
-	 * 
-	 * Past game mode differs than live game mode in the way the timing is set up
-	 * Here the timing is inputed by the user
+	 * two teams that are playing the game passed from the controller
+	 * Selected by the user
 	 * 
 	 */
 
-	public PastGame(League league, Team teamOne, Team teamTwo,  Calendar day, Calendar time) {
+	public LiveGame(Team teamOne, Team teamTwo) {
 		this.teamOne=teamOne;
 		this.teamTwo=teamTwo;
-		this.league=league;
-		this.startTime=time;
-		this.gameDay=day;
+		this.startTime=LocalTime.now();
+		this.gameDay=LocalDate.now();
 	}
+	/**
+	 * add shots to the player record
+	 * If the shot is goal, it adds it to the game score
+	 */
 
 	public void addShots(Shot shot, Player player, Team team) {
 		player.addShot(shot);
@@ -48,15 +47,18 @@ public class PastGame implements GameKeeper {
 		}	
 	}
 
+
 	public void addInfractions(Infraction infraction, Player player) {
 		player.addInfraction(infraction);
 	}
 
 	/**
-	 * returns the results of a game hwne the user terminates the session
-	 * upadates the teams reacords
+	 * When the user terminate the game
+	 * This method is clalled to display the final result 
+	 * it also updates the team record
 	 */
-	public int[] gameResults() {
+
+	public int[] gameResults(){
 		int[] result=new int[2];
 		//team one: team on left hand side of the view
 		//team two: rght hand side
@@ -79,20 +81,21 @@ public class PastGame implements GameKeeper {
 		return teamOneGoals;
 	}
 
-	public int getTeamTwoGoals() {
+	public int getTeamTwoGoals () {
 		return teamTwoGoals;
 	}
 
-	public League getLeague(){
-		return this.league;
-	}
-
-	public Calendar getGameDay(){
+	public LocalDate getGameDay(){
 		return this.gameDay;
 	}
 
-	public Calendar getStartTime(){
+	public LocalTime getStartTime(){
 		return this.startTime;
 	}
 }
+
+
+
+
+
 

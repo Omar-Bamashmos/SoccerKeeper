@@ -1,4 +1,4 @@
-package ecse321.ScoccerKeeper.controller;
+package ecse321.SoccerKeeper.controller;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package ecse321.ScoccerKeeper.controller;
+package ecse321.SoccerKeeper.controller;
 
 import java.util.ArrayList;
 
@@ -28,11 +28,29 @@ public class Season{
 	public ArrayList<League> getLeagues() {
 		return this.leagues;
 	}
+	
+	public String[] getLeaguesNames(){
+		String[] result = new String[this.getLeagues().size()];
+		int i = 0;
+		for(League league: this.getLeagues()){
+			result[i] = league.getLeagueName();
+			i++;
+		}
+		return result;
+	}
 
 	public static void setSeasons(Season[] seasonList){
 		seasons = seasonList;
 	}
-
+	
+	public static Season getSeasonFromName(String name){
+		for(Season season: seasons){
+			if(season.getName().equals(name))
+				return season;
+		}
+		return null;
+	}
+	
 	public static String[] getSeasonsNames(){
 		String[] result = new String[seasons.length];
         int i = 0;
