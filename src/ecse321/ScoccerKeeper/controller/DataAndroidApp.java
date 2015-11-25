@@ -1,17 +1,18 @@
-
 package ecse321.ScoccerKeeper.controller;
+
+//import android.content.Context;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Data{
+public class DataAndroidApp{
 
     /*	File format:
      * 	numberOfSeasons
@@ -87,17 +88,18 @@ public class Data{
         } catch (IOException e) {	e.printStackTrace();}
     }
 
-    public static Season[] readingFromFile(){
-        
-        File dataFile = new File("data.csv");
-		CSVReader cRead = null;
-		String[] nextLine;
-		int j = -1;
-
+    public static Season[] readingFromFile(/*Context myContext*/){	// UNCOMMENT ON ANDROID STUDIO
+        CSVReader cRead = null;
+        String[] nextLine;
+        int j = -1;
+//UNCOMMENT ON ANDROID STUDIO
+/*
         try {
-        	cRead = new CSVReader(new FileReader(dataFile), ',','"');
+            cRead = new CSVReader(new InputStreamReader(myContext.getAssets().open("data.csv")), ',','"');
 
         } catch (IOException e) {	e.printStackTrace();}
+        
+*/
         List<Season> seasons  = new ArrayList<>();
         try {
 
@@ -152,4 +154,3 @@ public class Data{
         return seasons.toArray(new Season[seasons.size()]);
     }
 }
-

@@ -9,6 +9,7 @@ import java.util.ArrayList;
  */
 public class Season{
 
+	private static Season[] seasons;
 	private String seasonName;
 	private ArrayList<League> leagues=new ArrayList<>();
 
@@ -26,5 +27,20 @@ public class Season{
 
 	public ArrayList<League> getLeagues() {
 		return this.leagues;
+	}
+
+	public static void setSeasons(Season[] seasonList){
+		seasons = seasonList;
+	}
+
+	public static String[] getSeasonsNames(){
+		String[] result = new String[seasons.length];
+        int i = 0;
+		for(Season season: seasons){
+			result[i] = season.getName();
+			i++;
+		}
+		return result;
+
 	}
 }

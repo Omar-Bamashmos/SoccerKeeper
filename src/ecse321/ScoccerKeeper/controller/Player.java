@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * @author Omar
  * 
  * This class stores the data of the player object
- *
+ * 
  */
 public class Player {
 	private  String name;
