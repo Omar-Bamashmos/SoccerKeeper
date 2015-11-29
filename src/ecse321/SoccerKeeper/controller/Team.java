@@ -1,6 +1,6 @@
 package ecse321.SoccerKeeper.controller;
 
-import java.awt.Image;
+//import java.awt.Image;
 import java.util.ArrayList;
 
 /**
@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class Team {
 	private String name;
-	private Image image;
+	//	private Image image;
 	private ArrayList<Player> players=new ArrayList<>();
 	private int numOfWins;
 	private int numOfDraws;
@@ -36,9 +36,9 @@ public class Team {
 		return this.name;
 	}
 
-	public Image getImage () {
-		return this.image;
-	}
+	//	public Image getImage () {
+	//		return this.image;
+	//	}
 
 	/**
 	 * update the records of the team
@@ -71,4 +71,36 @@ public class Team {
 
 		this.players.remove(player);
 	}
+
+
+	/**
+	 *
+	 * @return noodle
+	 */
+
+	public String[] getPlayersNames(){
+		String[] result = new String[this.getPlayers().size()];
+		int i=0;
+		for(Player player: this.getPlayers()){
+			result[i] = player.getName();
+			i++;
+		}
+		return result;
+	}
+
+	public Player getPlayerFromName(String name){
+		for(Player player: this.getPlayers()){
+			if(name.equals(player.getName())){
+				return player;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 *
+	 * @param name
+	 * @return get Team from League Name
+	 */
+
 }

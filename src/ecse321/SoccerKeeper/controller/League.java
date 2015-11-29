@@ -18,7 +18,7 @@ public class League {
 
 	/**
 	 * 
-	 * @param leaguename
+	 * @param leagueName
 	 * Create a new league is only allowed to the manager mode
 	 */
 	public League (String leagueName) {
@@ -48,6 +48,30 @@ public class League {
 	 */
 	public ArrayList<Team> getTeams() {
 		return this.teams;
+	}
+
+	/**
+	 *
+	 * @return team names
+	 */
+
+	public String[] getTeamNames(){
+		String[] result = new String[getTeams().size()];
+		int i=0;
+		for(Team team: this.getTeams()){
+			result[i] = team.getName();
+			i++;
+		}
+		return result;
+	}
+
+	public Team getTeamFromName(String name){
+		for(Team team: teams){
+			if(name.equals(team.getName())){
+				return team;
+			}
+		}
+		return null;
 	}
 
 }

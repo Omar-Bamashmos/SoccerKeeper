@@ -12,14 +12,14 @@ import java.util.ArrayList;
  *
  */
 
-public class leagueAnalysis {
-	
+public class LeagueAnalysis {
+
 	private League league;
-	
-	public leagueAnalysis (League league) {
+
+	public LeagueAnalysis (League league) {
 		this.league=league;
 	}
-	
+
 	/**
 	 * 
 	 * @return topTeams
@@ -30,32 +30,32 @@ public class leagueAnalysis {
 	public Team[] getTopTeams () {
 		Team[] topTeams=new Team[5];
 		ArrayList <Team> teams=league.getTeams();
-		
+
 		for(int i=0; i<5 && teams.size()>0; i++) {
-		topTeams[i]=teams.get(0);
-		for(Team team: teams) {
-			if(team.getPoints()>topTeams[i].getPoints())
-				topTeams[i]=team;
-		}
-		teams.remove(topTeams[i]);
+			topTeams[i]=teams.get(0);
+			for(Team team: teams) {
+				if(team.getPoints()>topTeams[i].getPoints())
+					topTeams[i]=team;
+			}
+			teams.remove(topTeams[i]);
 		}
 		return topTeams;
-		
-		
+
+
 	}
 	/**
 	 * 
 	 * @return topPlayer[]
 	 * 
 	 * the method rreurns the best five players in the league absed on the number of goals
-	* It uses the getnuOf goals method in the plyer object
+	 * It uses the getnuOf goals method in the plyer object
 	 */
-	
+
 	public Player[] getTopPlayers () {
 		Player[] topPlayers=new Player[5];
 		ArrayList<Player> players=new ArrayList<>();
 		ArrayList<Team> teams=league.getTeams();
-		
+
 		for(Team team: teams) {
 			for(Player player: team.getPlayers()) 
 				players.add(player);
@@ -67,11 +67,7 @@ public class leagueAnalysis {
 					topPlayers[i]=player;
 			}
 			players.remove(topPlayers[i]);
-			}	
-		
-		
-				
-		
+		}	
 		return topPlayers;
 	}
 	/**
@@ -79,12 +75,12 @@ public class leagueAnalysis {
 	 * @return mostPenalizedPlayers[]
 	 * returns the five players with most number of infractions
 	 */
-	
+
 	public Player[] getMostPenalizedPlayer() {
 		Player[] penalizedPlayers=new Player[5];
 		ArrayList<Player> players=new ArrayList<>();
 		ArrayList<Team> teams=league.getTeams();
-		
+
 		for(Team team: teams) {
 			for(Player player: team.getPlayers()) 
 				players.add(player);
@@ -96,9 +92,9 @@ public class leagueAnalysis {
 					penalizedPlayers[i]=player;
 			}
 			players.remove(penalizedPlayers[i]);
-			}	
+		}	
 		return penalizedPlayers;
 	}
-	
-	
+
+
 }

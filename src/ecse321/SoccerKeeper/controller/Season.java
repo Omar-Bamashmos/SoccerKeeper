@@ -25,10 +25,14 @@ public class Season{
 		return this.seasonName;
 	}
 
+	public void setSeasonName(String name){
+		this.seasonName = name;
+	}
+
 	public ArrayList<League> getLeagues() {
 		return this.leagues;
 	}
-	
+
 	public String[] getLeaguesNames(){
 		String[] result = new String[this.getLeagues().size()];
 		int i = 0;
@@ -42,7 +46,11 @@ public class Season{
 	public static void setSeasons(Season[] seasonList){
 		seasons = seasonList;
 	}
-	
+
+	public static Season[] getSeasons() {
+		return seasons;
+	}
+
 	public static Season getSeasonFromName(String name){
 		for(Season season: seasons){
 			if(season.getName().equals(name))
@@ -50,15 +58,23 @@ public class Season{
 		}
 		return null;
 	}
-	
+
 	public static String[] getSeasonsNames(){
 		String[] result = new String[seasons.length];
-        int i = 0;
+		int i = 0;
 		for(Season season: seasons){
 			result[i] = season.getName();
 			i++;
 		}
 		return result;
 
+	}
+
+	public League getLeagueFromName(String name){
+		for(League league: this.leagues){
+			if(league.getLeagueName().equals(name))
+				return league;
+		}
+		return null;
 	}
 }

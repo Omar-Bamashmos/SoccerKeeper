@@ -32,6 +32,7 @@ public class Data{
 	 */
 
 	public static void writingToFile(Season[] seasons){
+
 		File dataFile = new File("data.csv");
 		ArrayList<String[]> toPrint = new ArrayList<>();
 		for(Season season: seasons){

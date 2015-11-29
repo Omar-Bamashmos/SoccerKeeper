@@ -1,14 +1,18 @@
 package ecse321.SoccerKeeper.controller;
 
+//package controler;
+
 //import android.content.Context;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +36,9 @@ public class DataAndroidApp{
      *
      */
 
-    public static void writingToFile(Season[] seasons){
+    public static void writingToFile(/*Context myContext*/){
+        Season[] seasons = Season.getSeasons();
+        String fileName = "data.csv";
         File dataFile = new File("data.csv");
         ArrayList<String[]> toPrint = new ArrayList<>();
         for(Season season: seasons){
@@ -75,82 +81,180 @@ public class DataAndroidApp{
                 }
             }
         }
-
+/*
         try {
-            CSVWriter cErase = new CSVWriter(new FileWriter(dataFile, false), ',');
+            FileOutputStream fos = myContext.openFileOutput(fileName, Context.MODE_PRIVATE);
+
+            CSVWriter cErase = new CSVWriter(new OutputStreamWriter(fos));
+//            CSVWriter cErase = new CSVWriter(new FileWriter(dataFile, false), ',');
             cErase.flush();
-            CSVWriter cWrite = new CSVWriter(new FileWriter(dataFile, true), ',');
+            CSVWriter cWrite = new CSVWriter(new OutputStreamWriter(fos), ',');
 
             for(String[] lineToPrint: toPrint){
                 cWrite.writeNext(lineToPrint);
             }
             cWrite.close();
-        } catch (IOException e) {	e.printStackTrace();}
+        } catch (IOException e) {	e.printStackTrace();}*/
     }
 
-    public static Season[] readingFromFile(/*Context myContext*/){	// UNCOMMENT ON ANDROID STUDIO
+
+    public static Season[] readingFromFile(Context myContext){
+        Season[] result;
+        if(fileIsReal("data.csv", myContext)){
+            result = readingFromInternalFile(myContext);
+        }
+        else{
+            result = readingFromFileAsset(myContext);
+        }
+        return result;
+    }
+
+    public static Season[] readingFromFileAsset(Context myContext){	// UNCOMMENT ON ANDROID STUDIO
         CSVReader cRead = null;
         String[] nextLine;
         int j = -1;
 //UNCOMMENT ON ANDROID STUDIO
-/*
+
         try {
-            cRead = new CSVReader(new InputStreamReader(myContext.getAssets().open("data.csv")), ',','"');
+            cRead = new CSVReader(new InputStreamReader(myContext.getAssets().open("data.csv"), "ISO-8859-1"), ',','"');
 
         } catch (IOException e) {	e.printStackTrace();}
-        
-*/
+
+
         List<Season> seasons  = new ArrayList<>();
         try {
-
+            Season currentSeason = null;
+            League currentLeague = null;
+            Team currentTeam = null;
             while ((nextLine = cRead != null ? cRead.readNext() : new String[0]) != null) {
-                System.out.println("bullshit");
-                    if(nextLine[0].equals("season") && nextLine[1]!=(null)){
-                        j++;
-                        seasons.add(j,new Season(nextLine[1]));
+                if(nextLine[0].equals("season") && nextLine[1]!=(null)){
+                    j++;
+                    seasons.add(j,new Season(nextLine[1]));
+                    currentSeason = seasons.get(j);
+                }
+                if(nextLine[0].equals("league") && nextLine[1]!=(null)){
+                    seasons.get(j).addLeague(new League(nextLine[1]));
+                    currentLeague = currentSeason.getLeagues().get(currentSeason.getLeagues().size()-1);
+                }
+                if(nextLine[0].equals("team") && nextLine[1]!=(null)){
+                    Team tempTeam = new Team(nextLine[1]);
+                    seasons.get(j).getLeagues().get(seasons.get(j).getLeagues().size()-1).addTeams(tempTeam);
+                    currentTeam = currentLeague.getTeams().get(currentLeague.getTeams().size()-1);
+                }
+                if(nextLine[0].equals("player") && nextLine[1]!=(null)
+                        && nextLine[2]!=(null) && nextLine[3]!=(null) && nextLine[4]!=(null)
+                        && nextLine[5]!=(null) && nextLine[6]!=(null) && nextLine[7]!=(null)){
+                    Player tempPlayer = new Player(nextLine[1], Integer.valueOf(nextLine[2]), nextLine[3]);
+                    for(int i=0; i<Integer.valueOf(nextLine[4]); i++){
+                        //shots scored/goals
+                        tempPlayer.addShot(Shot.GOAL);
                     }
-                    if(nextLine[0].equals("league") && nextLine[1]!=(null)){
-                        seasons.get(j).addLeague(new League(nextLine[1]));
+                    for(int i=0; i<Integer.valueOf(nextLine[5]); i++){
+                        //shots saved
+                        tempPlayer.addShot(Shot.SAVED);
                     }
-                    if(nextLine[0].equals("team") && nextLine[1]!=(null)){
-                        Team tempTeam = new Team(nextLine[1]);
-                        seasons.get(j).getLeagues().get(seasons.get(j).getLeagues().size()-1).addTeams(tempTeam);
+                    for(int i=0; i<Integer.valueOf(nextLine[5]); i++){
+                        //shots missed
+                        tempPlayer.addShot(Shot.MISSED);
                     }
-                    if(nextLine[0].equals("player") && nextLine[1]!=(null)
-                            && nextLine[2]!=(null) && nextLine[3]!=(null) && nextLine[4]!=(null)
-                            && nextLine[5]!=(null) && nextLine[6]!=(null) && nextLine[7]!=(null)){
-                        Player tempPlayer = new Player(nextLine[1], Integer.valueOf(nextLine[2]), nextLine[3]);
-                        for(int i=0; i<Integer.valueOf(nextLine[4]); i++){
-                            //shots scored/goals
-                            tempPlayer.addShot(Shot.GOAL);
-                        }
-                        for(int i=0; i<Integer.valueOf(nextLine[5]); i++){
-                            //shots saved
-                            tempPlayer.addShot(Shot.SAVED);
-                        }
-                        for(int i=0; i<Integer.valueOf(nextLine[5]); i++){
-                            //shots missed
-                            tempPlayer.addShot(Shot.MISSED);
-                        }
-                        for(int i=0; i<Integer.valueOf(nextLine[4]); i++){
-                            //foul
-                            tempPlayer.addInfraction(Infraction.FOUL);
-                        }
-                        for(int i=0; i<Integer.valueOf(nextLine[5]); i++){
-                            //yellow Card
-                            tempPlayer.addInfraction(Infraction.YELLOW_CARD);
-                        }
-                        for(int i=0; i<Integer.valueOf(nextLine[5]); i++){
-                            //red Card
-                            tempPlayer.addInfraction(Infraction.RED_CARD);
-                        }
-                        seasons.get(j).getLeagues().get(seasons.get(j).getLeagues().size()-1).getTeams().get(seasons.get(j).getLeagues().get(seasons.get(j).getLeagues().size()-1).getTeams().size()-1).addPlayer(tempPlayer);
+                    for(int i=0; i<Integer.valueOf(nextLine[4]); i++){
+                        //foul
+                        tempPlayer.addInfraction(Infraction.FOUL);
                     }
+                    for(int i=0; i<Integer.valueOf(nextLine[5]); i++){
+                        //yellow Card
+                        tempPlayer.addInfraction(Infraction.YELLOW_CARD);
+                    }
+                    for(int i=0; i<Integer.valueOf(nextLine[5]); i++){
+                        //red Card
+                        tempPlayer.addInfraction(Infraction.RED_CARD);
+                    }
+//                        seasons.get(j).getLeagues().get(seasons.get(j).getLeagues().size()-1).getTeams().get(seasons.get(j).getLeagues().get(seasons.get(j).getLeagues().size()-1).getTeams().size()-1).addPlayer(tempPlayer);
+                    currentTeam.addPlayer(tempPlayer);
+                }
 
             }
             cRead.close();
         } catch (IOException e) {	e.printStackTrace();}
         Season.setSeasons(seasons.toArray(new Season[seasons.size()]));
         return seasons.toArray(new Season[seasons.size()]);
+    }
+
+    public static Season[] readingFromInternalFile(Context myContext){	// UNCOMMENT ON ANDROID STUDIO
+        CSVReader cRead = null;
+        String[] nextLine;
+        int j = -1;
+//UNCOMMENT ON ANDROID STUDIO
+
+        try {
+            FileInputStream reader = myContext.openFileInput("data.csv");
+            cRead = new CSVReader(new InputStreamReader(reader), ',','"');
+        } catch (IOException e) {	e.printStackTrace();}
+
+
+        List<Season> seasons  = new ArrayList<>();
+        try {
+            Season currentSeason = null;
+            League currentLeague = null;
+            Team currentTeam = null;
+            while ((nextLine = cRead != null ? cRead.readNext() : new String[0]) != null) {
+                if(nextLine[0].equals("season") && nextLine[1]!=(null)){
+                    j++;
+                    seasons.add(j,new Season(nextLine[1]));
+                    currentSeason = seasons.get(j);
+                }
+                if(nextLine[0].equals("league") && nextLine[1]!=(null)){
+                    seasons.get(j).addLeague(new League(nextLine[1]));
+                    currentLeague = currentSeason.getLeagues().get(currentSeason.getLeagues().size()-1);
+                }
+                if(nextLine[0].equals("team") && nextLine[1]!=(null)){
+                    Team tempTeam = new Team(nextLine[1]);
+                    seasons.get(j).getLeagues().get(seasons.get(j).getLeagues().size()-1).addTeams(tempTeam);
+                    currentTeam = currentLeague.getTeams().get(currentLeague.getTeams().size()-1);
+                }
+                if(nextLine[0].equals("player") && nextLine[1]!=(null)
+                        && nextLine[2]!=(null) && nextLine[3]!=(null) && nextLine[4]!=(null)
+                        && nextLine[5]!=(null) && nextLine[6]!=(null) && nextLine[7]!=(null)){
+                    Player tempPlayer = new Player(nextLine[1], Integer.valueOf(nextLine[2]), nextLine[3]);
+                    for(int i=0; i<Integer.valueOf(nextLine[4]); i++){
+                        //shots scored/goals
+                        tempPlayer.addShot(Shot.GOAL);
+                    }
+                    for(int i=0; i<Integer.valueOf(nextLine[5]); i++){
+                        //shots saved
+                        tempPlayer.addShot(Shot.SAVED);
+                    }
+                    for(int i=0; i<Integer.valueOf(nextLine[5]); i++){
+                        //shots missed
+                        tempPlayer.addShot(Shot.MISSED);
+                    }
+                    for(int i=0; i<Integer.valueOf(nextLine[4]); i++){
+                        //foul
+                        tempPlayer.addInfraction(Infraction.FOUL);
+                    }
+                    for(int i=0; i<Integer.valueOf(nextLine[5]); i++){
+                        //yellow Card
+                        tempPlayer.addInfraction(Infraction.YELLOW_CARD);
+                    }
+                    for(int i=0; i<Integer.valueOf(nextLine[5]); i++){
+                        //red Card
+                        tempPlayer.addInfraction(Infraction.RED_CARD);
+                    }
+//                        seasons.get(j).getLeagues().get(seasons.get(j).getLeagues().size()-1).getTeams().get(seasons.get(j).getLeagues().get(seasons.get(j).getLeagues().size()-1).getTeams().size()-1).addPlayer(tempPlayer);
+                    currentTeam.addPlayer(tempPlayer);
+                }
+
+            }
+            cRead.close();
+
+        } catch (IOException e) {	e.printStackTrace();}
+        Season.setSeasons(seasons.toArray(new Season[seasons.size()]));
+        return seasons.toArray(new Season[seasons.size()]);
+    }
+
+    public static boolean fileIsReal(String fName, Context myContext){
+        String path = myContext.getFilesDir().getAbsolutePath() + "/" + fName;
+        File file = new File(path);
+        return file.exists();
     }
 }

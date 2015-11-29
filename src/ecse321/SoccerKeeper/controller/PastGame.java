@@ -20,10 +20,10 @@ public class PastGame implements GameKeeper {
 	/**
 	 * 
 	 * @param league
-	 * @param teamone
-	 * @param teamtwo
-	 * @param Day
-	 * @param Time
+	 * @param teamOne
+	 * @param teamTwo
+	 * @param day
+	 * @param time
 	 * 
 	 * Past game mode differs than live game mode in the way the timing is set up
 	 * Here the timing is inputed by the user
