@@ -3,10 +3,9 @@ package ecse321.SoccerKeeper.controller;
 import java.util.Calendar;
 
 /**
- * 
  * @author Omar
- * This class updates the teams and the players' records as a results 
- * of  past game
+ *         This class updates the teams and the players' records as a results
+ *         of  past game
  */
 public class PastGame implements GameKeeper {
 	private Team teamOne;
@@ -18,34 +17,30 @@ public class PastGame implements GameKeeper {
 	private int teamTwoGoals;
 
 	/**
-	 * 
 	 * @param league
 	 * @param teamOne
 	 * @param teamTwo
 	 * @param day
-	 * @param time
-	 * 
-	 * Past game mode differs than live game mode in the way the timing is set up
-	 * Here the timing is inputed by the user
-	 * 
+	 * @param time    Past game mode differs than live game mode in the way the timing is set up
+	 *                Here the timing is inputed by the user
 	 */
 
-	public PastGame(League league, Team teamOne, Team teamTwo,  Calendar day, Calendar time) {
-		this.teamOne=teamOne;
-		this.teamTwo=teamTwo;
-		this.league=league;
-		this.startTime=time;
-		this.gameDay=day;
+	public PastGame(League league, Team teamOne, Team teamTwo, Calendar day, Calendar time) {
+		this.teamOne = teamOne;
+		this.teamTwo = teamTwo;
+		this.league = league;
+		this.startTime = time;
+		this.gameDay = day;
 	}
 
 	public void addShots(Shot shot, Player player, Team team) {
 		player.addShot(shot);
-		if(shot==Shot.GOAL) {
-			if(team==teamOne)
+		if (shot == Shot.GOAL) {
+			if (team == teamOne)
 				teamOneGoals++;
 			else
 				teamTwoGoals++;
-		}	
+		}
 	}
 
 	public void addInfractions(Infraction infraction, Player player) {
@@ -57,15 +52,15 @@ public class PastGame implements GameKeeper {
 	 * upadates the teams reacords
 	 */
 	public int[] gameResults() {
-		int[] result=new int[2];
+		int[] result = new int[2];
 		//team one: team on left hand side of the view
 		//team two: rght hand side
-		result[0]=teamOneGoals;
-		result[1]=teamTwoGoals;
+		result[0] = teamOneGoals;
+		result[1] = teamTwoGoals;
 		//add to recods
-		if(teamOneGoals>teamTwoGoals)
+		if (teamOneGoals > teamTwoGoals)
 			teamOne.incrementNumOfWins();
-		else if (teamOneGoals<teamTwoGoals)
+		else if (teamOneGoals < teamTwoGoals)
 			teamTwo.incrementNumOfWins();
 		else {
 			teamTwo.incrementNumOfDraws();
@@ -83,15 +78,15 @@ public class PastGame implements GameKeeper {
 		return teamTwoGoals;
 	}
 
-	public League getLeague(){
+	public League getLeague() {
 		return this.league;
 	}
 
-	public Calendar getGameDay(){
+	public Calendar getGameDay() {
 		return this.gameDay;
 	}
 
-	public Calendar getStartTime(){
+	public Calendar getStartTime() {
 		return this.startTime;
 	}
 }

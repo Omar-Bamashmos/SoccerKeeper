@@ -1,4 +1,4 @@
-package ecse321.SoccerKeeper.visualInterface;
+package ecse321.SoccerKeeper.desktopAppGUI.ScoreKeepingApplication.src.application;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;

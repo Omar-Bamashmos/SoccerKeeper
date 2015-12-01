@@ -1,7 +1,7 @@
 package ecse321.SoccerKeeper.controller;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+//import java.time.LocalDate;
+//import java.time.LocalTime;
 
 /**
  * 
@@ -13,14 +13,14 @@ import java.time.LocalTime;
 public class LiveGame implements GameKeeper {
 	private Team teamOne;
 	private Team teamTwo;
-	private LocalTime startTime;
-	private LocalDate gameDay;
+	//	private LocalTime startTime;
+	//	private LocalDate gameDay;
 	private int teamOneGoals;
 	private int teamTwoGoals;
 	/**
 	 * 
-	 * @param teamone
-	 * @param teamtwo
+	 * @param teamOne
+	 * @param teamTwo
 	 * two teams that are playing the game passed from the controller
 	 * Selected by the user
 	 * 
@@ -29,8 +29,8 @@ public class LiveGame implements GameKeeper {
 	public LiveGame(Team teamOne, Team teamTwo) {
 		this.teamOne=teamOne;
 		this.teamTwo=teamTwo;
-		this.startTime=LocalTime.now();
-		this.gameDay=LocalDate.now();
+		//		this.startTime=LocalTime.now();
+		//		this.gameDay=LocalDate.now();
 	}
 	/**
 	 * add shots to the player record
@@ -85,13 +85,13 @@ public class LiveGame implements GameKeeper {
 		return teamTwoGoals;
 	}
 
-	public LocalDate getGameDay(){
-		return this.gameDay;
-	}
-
-	public LocalTime getStartTime(){
-		return this.startTime;
-	}
+	//	public LocalDate getGameDay(){
+	//		return this.gameDay;
+	//	}
+	//
+	//	public LocalTime getStartTime(){
+	//		return this.startTime;
+	//	}
 }
 
 

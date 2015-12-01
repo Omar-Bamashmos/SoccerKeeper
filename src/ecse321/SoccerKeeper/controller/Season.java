@@ -3,21 +3,20 @@ package ecse321.SoccerKeeper.controller;
 import java.util.ArrayList;
 
 /**
- * 
  * @author Omar
- * Stores the data of the leagues in the season
+ *         Stores the data of the leagues in the season
  */
-public class Season{
+public class Season {
 
 	private static Season[] seasons;
 	private String seasonName;
-	private ArrayList<League> leagues=new ArrayList<>();
+	private ArrayList<League> leagues = new ArrayList<>();
 
-	public Season (String seasonName) {
-		this.seasonName=seasonName;
+	public Season(String seasonName) {
+		this.seasonName = seasonName;
 	}
 
-	public void addLeague (League league) {
+	public void addLeague(League league) {
 		leagues.add(league);
 	}
 
@@ -25,25 +24,21 @@ public class Season{
 		return this.seasonName;
 	}
 
-	public void setSeasonName(String name){
-		this.seasonName = name;
-	}
-
 	public ArrayList<League> getLeagues() {
 		return this.leagues;
 	}
 
-	public String[] getLeaguesNames(){
+	public String[] getLeaguesNames() {
 		String[] result = new String[this.getLeagues().size()];
 		int i = 0;
-		for(League league: this.getLeagues()){
+		for (League league : this.getLeagues()) {
 			result[i] = league.getLeagueName();
 			i++;
 		}
 		return result;
 	}
 
-	public static void setSeasons(Season[] seasonList){
+	public static void setSeasons(Season[] seasonList) {
 		seasons = seasonList;
 	}
 
@@ -51,18 +46,18 @@ public class Season{
 		return seasons;
 	}
 
-	public static Season getSeasonFromName(String name){
-		for(Season season: seasons){
-			if(season.getName().equals(name))
+	public static Season getSeasonFromName(String name) {
+		for (Season season : seasons) {
+			if (season.getName().equals(name))
 				return season;
 		}
 		return null;
 	}
 
-	public static String[] getSeasonsNames(){
+	public static String[] getSeasonsNames() {
 		String[] result = new String[seasons.length];
 		int i = 0;
-		for(Season season: seasons){
+		for (Season season : seasons) {
 			result[i] = season.getName();
 			i++;
 		}
@@ -70,11 +65,24 @@ public class Season{
 
 	}
 
-	public League getLeagueFromName(String name){
-		for(League league: this.leagues){
-			if(league.getLeagueName().equals(name))
+	public League getLeagueFromName(String name) {
+		for (League league : this.leagues) {
+			if (league.getLeagueName().equals(name))
 				return league;
 		}
 		return null;
+	}
+
+	public void resetData() {
+		for (League league : this.leagues) {
+			for (Team team : league.getTeams()) {
+				team.setNumOfWins(0);
+				team.setNumOfDraws(0);
+				team.setNumOfLosses(0);
+				for (Player player : team.getPlayers()) {
+					player.resetDataPlayer();
+				}
+			}
+		}
 	}
 }

@@ -1,4 +1,4 @@
-package ecse321.SoccerKeeper.visualInterface;
+package ecse321.SoccerKeeper.desktopAppGUI.ScoreKeepingApplication.src.application;
 
 import java.awt.EventQueue;
 
@@ -6,7 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
-
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -23,9 +22,6 @@ import javax.swing.JPanel;
 import java.awt.CardLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-
-import ecse321.SoccerKeeper.controller.Data;
-
 import javax.swing.JTextField;
 
 public class AppWindow {
@@ -58,8 +54,6 @@ public class AppWindow {
 	 */
 	public AppWindow() {
 		initialize();
-		//initialize backend
-		Data.readingFromFile();
 	}
 
 	/**
@@ -75,8 +69,6 @@ public class AppWindow {
 		LoginMenu.setToolTipText("");
 		frame.getContentPane().add(LoginMenu, "name_226083077594956");
 		LoginMenu.setLayout(null);
-		
-		
 		
 		JButton btnScorekeeper = new JButton("ScoreKeeper");
 		btnScorekeeper.addActionListener(new ActionListener() {

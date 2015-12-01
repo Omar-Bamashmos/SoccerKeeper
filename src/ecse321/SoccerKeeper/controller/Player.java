@@ -3,11 +3,11 @@ package ecse321.SoccerKeeper.controller;
 import java.util.ArrayList;
 
 /**
- * 
+ *
  * @author Omar
- * 
+ *
  * This class stores the data of the player object
- * 
+ *
  */
 public class Player {
 	private  String name;
@@ -15,6 +15,8 @@ public class Player {
 	private String nationality;
 	private ArrayList<Shot> shots= new ArrayList<>();
 	private ArrayList<Infraction>infractions= new ArrayList<>();
+	private int yellowNumCurrent;
+	private int redNumCurrent;
 
 	public Player (String namePlayer, int jerseyNumber, String nationality) {
 		this.name=namePlayer;
@@ -22,8 +24,10 @@ public class Player {
 		this.nationality=nationality;
 	}
 
+
+
 	/**
-	 * 
+	 *
 	 * @return player's Name
 	 */
 	public String getName() {
@@ -31,7 +35,7 @@ public class Player {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return player's jersey number
 	 */
 	public int getJerseyNumber() {
@@ -39,7 +43,7 @@ public class Player {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param shot
 	 * add a shot to the player record
 	 */
@@ -47,8 +51,10 @@ public class Player {
 		shots.add(shot);
 	}
 
+
+
 	/**
-	 * 
+	 *
 	 * @param infraction
 	 * add infraction to the player record
 	 */
@@ -58,7 +64,7 @@ public class Player {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return list of shots
 	 */
 	public ArrayList<Shot> getShots(){
@@ -66,7 +72,7 @@ public class Player {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return list of infractions
 	 */
 	public ArrayList<Infraction> getInfractions() {
@@ -74,9 +80,9 @@ public class Player {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return number of goals
-	 * 
+	 *
 	 */
 	public int getNumOfGoals() {
 		int numOfGoals=0;
@@ -88,11 +94,28 @@ public class Player {
 					numOfGoals++;
 			}
 		}
-		return numOfGoals;	
+		return numOfGoals;
+	}
+
+	public void setNumOfGoals(int numOfGoals){
+
+		for(int i=0; i<numOfGoals; i++) {
+			shots.add(Shot.GOAL);
+		}
+	}
+
+	public void resetCards(){
+		yellowNumCurrent = 0;
+		redNumCurrent = 0;
+	}
+
+	public void resetDataPlayer(){
+		shots.clear();
+		infractions.clear();
 	}
 
 	/**
-	 * 
+	 *
 	 * @return number of infractions in the player record
 	 */
 	public int getNumOfInfractions() {
@@ -102,8 +125,59 @@ public class Player {
 			return this.infractions.size();
 	}
 
+	public int getNumOfFouls(){
+		int i=0;
+		for(Infraction infraction: infractions){
+
+			if(infraction.equals(Infraction.FOUL)){
+				i++;
+			}
+		}
+		return i;
+	}
+
+	public int getNumOfYellow(){
+		int i=0;
+		for(Infraction infraction: infractions){
+
+			if(infraction.equals(Infraction.YELLOW_CARD)){
+				i++;
+			}
+		}
+		return i;
+	}
+
+	public int getNumOfRed(){
+		int i=0;
+		for(Infraction infraction: infractions){
+
+			if(infraction.equals(Infraction.RED_CARD)){
+				i++;
+			}
+		}
+		return i;
+	}
+
 	public String getNationality(){
 		return this.nationality;
 	}
+
+
+	public void incrementYellow(){
+		this.yellowNumCurrent++;
+	}
+
+	public void incrementRed(){
+		this.redNumCurrent++;
+	}
+
+	public int getYellow(){
+		return yellowNumCurrent;
+	}
+
+	public int getRed(){
+		return yellowNumCurrent;
+	}
+
 
 }

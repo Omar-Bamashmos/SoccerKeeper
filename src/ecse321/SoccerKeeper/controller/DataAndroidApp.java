@@ -1,9 +1,9 @@
-package ecse321.SoccerKeeper.controller;
+/*package ecse321.SoccerKeeper.controller;
 
-//package controler;
+import android.content.Context;
 
-//import android.content.Context;
-
+import com.example.rawad663.ecse321.MainActivity;
+import com.example.rawad663.ecse321.ScoreKeeper;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
@@ -34,9 +34,9 @@ public class DataAndroidApp{
      * 	team, teamName
      * 	player, playerName5, jerseyNumber, nationality, shots scored (goals), shots saved, shots missed, fouls, yellowCard, redCard
      *
-     */
+     *//*
 
-    public static void writingToFile(/*Context myContext*/){
+    public static void writingToFile(Context myContext){
         Season[] seasons = Season.getSeasons();
         String fileName = "data.csv";
         File dataFile = new File("data.csv");
@@ -46,7 +46,7 @@ public class DataAndroidApp{
             for(League league: season.getLeagues()){
                 toPrint.add(new String[] {"league", league.getLeagueName()});
                 for(Team team: league.getTeams()){
-                    toPrint.add(new String[] {"team", team.getName()});
+                    toPrint.add(new String[] {"team", team.getName(), Integer.toString(team.getNumOfWins()), Integer.toString(team.getNumOfDraws()), Integer.toString(team.getNumOfLosses())});
                     for(Player player: team.getPlayers()){
                         int goals = 0;
                         int saves = 0;
@@ -81,7 +81,7 @@ public class DataAndroidApp{
                 }
             }
         }
-/*
+
         try {
             FileOutputStream fos = myContext.openFileOutput(fileName, Context.MODE_PRIVATE);
 
@@ -94,12 +94,19 @@ public class DataAndroidApp{
                 cWrite.writeNext(lineToPrint);
             }
             cWrite.close();
-        } catch (IOException e) {	e.printStackTrace();}*/
+        } catch (IOException e) {	e.printStackTrace();}
     }
 
 
     public static Season[] readingFromFile(Context myContext){
         Season[] result;
+        //manual reset of data
+        if(false){
+            result = readingFromFileAsset(myContext);
+            writingToFile(myContext);
+            return result;
+        }
+
         if(fileIsReal("data.csv", myContext)){
             result = readingFromInternalFile(myContext);
         }
@@ -138,6 +145,9 @@ public class DataAndroidApp{
                 }
                 if(nextLine[0].equals("team") && nextLine[1]!=(null)){
                     Team tempTeam = new Team(nextLine[1]);
+                    tempTeam.setNumOfWins(Integer.valueOf(nextLine[2]));
+                    tempTeam.setNumOfDraws(Integer.valueOf(nextLine[3]));
+                    tempTeam.setNumOfLosses(Integer.valueOf(nextLine[4]));
                     seasons.get(j).getLeagues().get(seasons.get(j).getLeagues().size()-1).addTeams(tempTeam);
                     currentTeam = currentLeague.getTeams().get(currentLeague.getTeams().size()-1);
                 }
@@ -209,6 +219,9 @@ public class DataAndroidApp{
                 }
                 if(nextLine[0].equals("team") && nextLine[1]!=(null)){
                     Team tempTeam = new Team(nextLine[1]);
+                    tempTeam.setNumOfWins(Integer.valueOf(nextLine[2]));
+                    tempTeam.setNumOfDraws(Integer.valueOf(nextLine[3]));
+                    tempTeam.setNumOfLosses(Integer.valueOf(nextLine[4]));
                     seasons.get(j).getLeagues().get(seasons.get(j).getLeagues().size()-1).addTeams(tempTeam);
                     currentTeam = currentLeague.getTeams().get(currentLeague.getTeams().size()-1);
                 }
@@ -258,3 +271,4 @@ public class DataAndroidApp{
         return file.exists();
     }
 }
+/**/
