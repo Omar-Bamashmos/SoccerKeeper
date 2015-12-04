@@ -3,10 +3,8 @@ package ecse321.SoccerKeeper.controller;
 import java.util.ArrayList;
 
 /**
- *
- * @author Omar
- *
- * This class stores the data of the player object
+ * Player object contains the info of a player with all its data.
+ * @author Vivien
  *
  */
 public class Player {
@@ -18,6 +16,12 @@ public class Player {
 	private int yellowNumCurrent;
 	private int redNumCurrent;
 
+	/**
+	 * Constructor for the player class.
+	 * @param namePlayer
+	 * @param jerseyNumber
+	 * @param nationality
+	 */
 	public Player (String namePlayer, int jerseyNumber, String nationality) {
 		this.name=namePlayer;
 		this.jerseyNumber=jerseyNumber;
@@ -27,7 +31,7 @@ public class Player {
 
 
 	/**
-	 *
+	 * Returns the name of the current player.
 	 * @return player's Name
 	 */
 	public String getName() {
@@ -35,7 +39,7 @@ public class Player {
 	}
 
 	/**
-	 *
+	 * Returns the jersey number of the current player.
 	 * @return player's jersey number
 	 */
 	public int getJerseyNumber() {
@@ -43,9 +47,8 @@ public class Player {
 	}
 
 	/**
-	 *
+	 * Adds a shot to the current player's data.
 	 * @param shot
-	 * add a shot to the player record
 	 */
 	public void addShot(Shot shot) {
 		shots.add(shot);
@@ -54,9 +57,8 @@ public class Player {
 
 
 	/**
-	 *
+	 * Adds an infraction to the current player's data.
 	 * @param infraction
-	 * add infraction to the player record
 	 */
 	public void addInfraction(Infraction infraction) {
 		infractions.add(infraction);
@@ -64,7 +66,7 @@ public class Player {
 	}
 
 	/**
-	 *
+	 * Returns a list of all the shots from the current player.
 	 * @return list of shots
 	 */
 	public ArrayList<Shot> getShots(){
@@ -72,7 +74,7 @@ public class Player {
 	}
 
 	/**
-	 *
+	 * Returns a list of all the infractions committed by the current player.
 	 * @return list of infractions
 	 */
 	public ArrayList<Infraction> getInfractions() {
@@ -80,7 +82,7 @@ public class Player {
 	}
 
 	/**
-	 *
+	 * Returns the number of goals scored by the current player.
 	 * @return number of goals
 	 *
 	 */
@@ -96,7 +98,11 @@ public class Player {
 		}
 		return numOfGoals;
 	}
-
+	
+	/**
+	 * Returns the number of shots on target made by the current player.
+	 * @return number of shots on target
+	 */
 	public int getNumOfShotsOnTarget() {
 		int numOfGoals=0;
 		if(shots==null)
@@ -110,7 +116,10 @@ public class Player {
 		return numOfGoals;
 	}
 
-
+	/**
+	 * Returns the number of shots off target made by the current player.
+	 * @return number of shots off target
+	 */
 	public int getNumOfShotsOffTarget() {
 		int numOfGoals=0;
 		if(shots==null)
@@ -124,27 +133,36 @@ public class Player {
 		return numOfGoals;
 	}
 
-
+	/**
+	 * Sets the number of goals scored by the current player.
+	 * @param numOfGoals
+	 */
 	public void setNumOfGoals(int numOfGoals){
 
 		for(int i=0; i<numOfGoals; i++) {
 			shots.add(Shot.GOAL);
 		}
 	}
-
+	
+	/**
+	 * Resets all the temporary cards given to the current player during a game.
+	 */
 	public void resetCards(){
 		yellowNumCurrent = 0;
 		redNumCurrent = 0;
 	}
-
+	
+	/**
+	 * Resets all the current player's data.
+	 */
 	public void resetDataPlayer(){
 		shots.clear();
 		infractions.clear();
 	}
 
 	/**
-	 *
-	 * @return number of infractions in the player record
+	 * Returns the number of infractions committed by the current player.
+	 * @return number of infractions
 	 */
 	public int getNumOfInfractions() {
 		if (infractions==null)
@@ -152,7 +170,12 @@ public class Player {
 		else
 			return this.infractions.size();
 	}
-
+	
+	
+	/**
+	 * Returns the number of fouls committed by the current player.
+	 * @return number of fouls
+	 */
 	public int getNumOfFouls(){
 		int i=0;
 		for(Infraction infraction: infractions){
@@ -164,6 +187,10 @@ public class Player {
 		return i;
 	}
 
+	/**
+	 * Returns the number of yellow cards received by the current player.
+	 * @return number of yellow cards
+	 */
 	public int getNumOfYellow(){
 		int i=0;
 		for(Infraction infraction: infractions){
@@ -175,6 +202,10 @@ public class Player {
 		return i;
 	}
 
+	/**
+	 * Returns the number of red cards received by the current player.
+	 * @return number of red cards
+	 */
 	public int getNumOfRed(){
 		int i=0;
 		for(Infraction infraction: infractions){
@@ -186,23 +217,41 @@ public class Player {
 		return i;
 	}
 
+	/**
+	 * Returns a string containing the nationality of the current player.
+	 * @return the nationality of the current player.
+	 */
 	public String getNationality(){
 		return this.nationality;
 	}
 
-
+	/**
+	 * Increment the number of yellow cards received by the current player during a match.
+	 */
 	public void incrementYellow(){
 		this.yellowNumCurrent++;
 	}
 
+	/**
+	 * Increment the number of red cards received by the current player during a match.
+	 */
 	public void incrementRed(){
 		this.redNumCurrent++;
 	}
 
+	/**
+	 * Returns the number of yellow cards that the current player has received during a match.
+	 * @return number of yellow cards
+	 */
 	public int getYellow(){
 		return yellowNumCurrent;
 	}
-
+	
+	
+	/**
+	 * Returns the number of red cards that the current player has received during a match.
+	 * @return number of red cards
+	 */
 	public int getRed(){
 		return yellowNumCurrent;
 	}

@@ -11,6 +11,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is used to read and write data for the desktop application to and from a file.
+ * @author Vivien
+ * 
+ */
 public class Data{
 
 	/*	File format:
@@ -30,7 +35,10 @@ public class Data{
 	 * 	player, playerName5, jerseyNumber, nationality, shots scored (goals), shots saved, shots missed, fouls, yellowCard, redCard
 	 *
 	 */
-
+	
+	/**
+	 * This class wipes off the file, and writes all the data from the application to the file.
+	 */
 	public static void writingToFile(){
 		Season[] seasons = Season.getSeasons();
 		File dataFile = new File("data.csv");
@@ -88,8 +96,12 @@ public class Data{
 		} catch (IOException e) {	e.printStackTrace();}
 	}
 
+	
+	/**
+	 * Reads the data from the file and turns it into seasons, leagues, teams and player
+	 * @return season array with all the elements of the file
+	 */
 	public static Season[] readingFromFile(){
-
 		File dataFile = new File("data.csv");
 		CSVReader cRead = null;
 		String[] nextLine;

@@ -1,8 +1,8 @@
 package ecse321.SoccerKeeper.controller;
 /**
- * 
+ * Enumerates all the possible types of shot.
  * @author Omar
- *select the type of the shot
+ *
  */
 public enum Shot {GOAL, SAVED, MISSED}
 

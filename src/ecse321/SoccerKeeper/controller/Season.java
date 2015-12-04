@@ -10,35 +10,61 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * Stores the data of the leagues in the season
  * @author Omar
- *         Stores the data of the leagues in the season
+ *         
  */
 public class Season {
 
 	private static Season[] seasons;
 	private String seasonName;
 	private ArrayList<League> leagues = new ArrayList<>();
-
+	
+	/**
+	 * Constructor for the season class.
+	 * @param seasonName
+	 */
 	public Season(String seasonName) {
 		this.seasonName = seasonName;
 	}
-
+	
+	/**
+	 * Adds a league to the current season.
+	 * @param league
+	 */
 	public void addLeague(League league) {
 		leagues.add(league);
 	}
 
+	/**
+	 * Remove a league from the current season.
+	 * @param league
+	 */
     public void removeLeague(League league){
         leagues.remove(league);
     }
 
+    /**
+     * Returns the name of the current season.
+     * @return season's name
+     */
 	public String getName() {
 		return this.seasonName;
 	}
 
+	/**
+	 * Returns a list of all the leagues in the current season.
+	 * @return list of leagues
+	 */
 	public ArrayList<League> getLeagues() {
 		return this.leagues;
 	}
 
+	
+	/**
+	 * Returns a String array containing all the league names of the current season.
+	 * @return list of league names
+	 */
 	public String[] getLeaguesNames() {
 		String[] result = new String[this.getLeagues().size()];
 		int i = 0;
@@ -48,48 +74,77 @@ public class Season {
 		}
 		return result;
 	}
-
+	
+	
+	/**
+	 * Sets the list of all the seasons.
+	 * @param seasonList
+	 */
 	public static void setSeasons(Season[] seasonList) {
 		seasons = seasonList;
 	}
 
-//	public static void addSeasonByName(String seasonName, Context myContext){
-//        LinkedList<Season> seasonTemp = new LinkedList<>(Arrays.asList(Season.getSeasons()));
-//		Season newSeason = new Season(seasonName);
-//
-//		for (League league : seasons[0].getLeagues()) {
-//			newSeason.addLeague(league);
-//		}
-//		newSeason.resetData();
-//		seasonTemp.addFirst(newSeason);
-//		seasons = seasonTemp.toArray(new Season[]{});
-//		Season.setSeasons(seasons);
-//		DataAndroidApp.writingToFile(myContext);
-//		DataAndroidApp.readingFromFile(myContext);
-//	}
-//
-//    public static void removeSeasonByName(String seasonToDeleteName, Context myContext){
-//        LinkedList<Season> seasonTemp = new LinkedList<>(Arrays.asList(Season.getSeasons()));
-//
-//        seasonTemp.remove(Season.getSeasonFromName(seasonToDeleteName));
-//        seasons = seasonTemp.toArray(new Season[seasonTemp.size()]);
-//        Season.setSeasons(seasons);
-//        DataAndroidApp.writingToFile(myContext);
-//        DataAndroidApp.readingFromFile(myContext);
-//    }
-//
-//    public void addLeagueByName(String leagueName, Context myContext){
-//        this.addLeague(new League(leagueName));
-//        DataAndroidApp.writingToFile(myContext);
-//        DataAndroidApp.readingFromFile(myContext);
-//    }
-//
-//    public void removeLeagueByName(String leagueName, Context myContext){
-//        this.removeLeague(this.getLeagueFromName(leagueName));
-//        DataAndroidApp.writingToFile(myContext);
-//        DataAndroidApp.readingFromFile(myContext);
-//    }
+	/**
+	 * Adds a season from its name. And updates the data file.
+	 * @param seasonName
+	 * @param myContext android parameter to access a file.
+	 */
+	public static void addSeasonByName(String seasonName, Context myContext){
+        LinkedList<Season> seasonTemp = new LinkedList<>(Arrays.asList(Season.getSeasons()));
+		Season newSeason = new Season(seasonName);
 
+		for (League league : seasons[0].getLeagues()) {
+			newSeason.addLeague(league);
+		}
+		newSeason.resetData();
+		seasonTemp.addFirst(newSeason);
+		seasons = seasonTemp.toArray(new Season[]{});
+		Season.setSeasons(seasons);
+		DataAndroidApp.writingToFile(myContext);
+		DataAndroidApp.readingFromFile(myContext);
+	}
+
+	/**
+	 * Removes a season from its name. And updates the data file.
+	 * @param seasonToDeleteName
+	 * @param myContext android parameter to access a file.
+	 */
+    public static void removeSeasonByName(String seasonToDeleteName, Context myContext){
+        LinkedList<Season> seasonTemp = new LinkedList<>(Arrays.asList(Season.getSeasons()));
+
+        seasonTemp.remove(Season.getSeasonFromName(seasonToDeleteName));
+        seasons = seasonTemp.toArray(new Season[seasonTemp.size()]);
+        Season.setSeasons(seasons);
+        DataAndroidApp.writingToFile(myContext);
+        DataAndroidApp.readingFromFile(myContext);
+    }
+
+	/**
+	 * Adds a league from its name. And updates the data file.
+	 * @param leagueName
+	 * @param myContext android parameter to access a file.
+	 */
+    public void addLeagueByName(String leagueName, Context myContext){
+        this.addLeague(new League(leagueName));
+        DataAndroidApp.writingToFile(myContext);
+        DataAndroidApp.readingFromFile(myContext);
+    }
+
+	/**
+	 * Remove a league from its name. And updates the data file.
+	 * @param leagueName
+	 * @param myContext android parameter to access a file.
+	 */
+    public void removeLeagueByName(String leagueName, Context myContext){
+        this.removeLeague(this.getLeagueFromName(leagueName));
+        DataAndroidApp.writingToFile(myContext);
+        DataAndroidApp.readingFromFile(myContext);
+    }
+
+    /**
+     * Returns a String array with the names of all the teams in the current season.
+     * @return list of all the teams' names
+     */
 	public String[] getTeamsNamesFromASeason() {
 		ArrayList<League> allLeagues = this.getLeagues();
 		int size = 0;
@@ -114,7 +169,10 @@ public class Season {
 		return returnation;
 	}
 
-
+    /**
+     * Returns a String array with the names of all the players in the current season.
+     * @return list of all the players' names
+     */
 	public String[] getPlayersNamesFromASeason() {
 		ArrayList<League> allLeagues = this.getLeagues();
 		int size = 0;
@@ -135,15 +193,17 @@ public class Season {
 
 			}
 		}
-
 		Collections.sort(allPlayersNames);
 		String[] returnation = new String[allPlayersNames.size()];
 		allPlayersNames.toArray(returnation);
 		return returnation;
 	}
 
-
-
+	/**
+	 * Returns a league in the current season from the name of a team inside it.
+	 * @param teamName
+	 * @return league
+	 */
 	public League getLeagueFromTeamName(String teamName){
 		ArrayList<League> allLeagues = this.getLeagues();
 		HashMap<League, ArrayList<Team>> allTeams = new HashMap<League, ArrayList<Team>>();
@@ -159,11 +219,20 @@ public class Season {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * Returns a list of all the seasons.
+	 * @return list of seasons
+	 */
 	public static Season[] getSeasons() {
 		return seasons;
 	}
-
+	
+	/**
+	 * Return a season present on the list of all the seasons from its name.
+	 * @param name
+	 * @return season
+	 */
 	public static Season getSeasonFromName(String name) {
 		for (Season season : seasons) {
 			if (season.getName().equals(name))
@@ -171,7 +240,11 @@ public class Season {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * Returns a list of all the seasons' names. 
+	 * @return list of seasons' names
+	 */
 	public static String[] getSeasonsNames() {
 		String[] result = new String[seasons.length];
 		int i = 0;
@@ -181,7 +254,13 @@ public class Season {
 		}
 		return result;
 	}
-
+	
+	
+	/**
+	 * Returns a league in the current season from its name.
+	 * @param name
+	 * @return league
+	 */
 	public League getLeagueFromName(String name) {
 		for (League league : this.leagues) {
 			if (league.getLeagueName().equals(name))
@@ -189,7 +268,10 @@ public class Season {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * Resets the data (teams' results, players' data) from all the seasons.
+	 */
 	public void resetData() {
 		for (League league : this.leagues) {
 			for (Team team : league.getTeams()) {
