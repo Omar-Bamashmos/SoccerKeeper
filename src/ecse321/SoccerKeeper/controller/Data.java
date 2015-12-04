@@ -40,7 +40,7 @@ public class Data{
 			for(League league: season.getLeagues()){
 				toPrint.add(new String[] {"league", league.getLeagueName()});
 				for(Team team: league.getTeams()){
-					toPrint.add(new String[] {"team", team.getName()});
+					toPrint.add(new String[] {"team", team.getName(), Integer.toString(team.getNumOfWins()), Integer.toString(team.getNumOfDraws()), Integer.toString(team.getNumOfLosses())});
 					for(Player player: team.getPlayers()){
 						int goals = 0;
 						int saves = 0;
@@ -112,7 +112,10 @@ public class Data{
 				}
 				if(nextLine[0].equals("team") && nextLine[1]!=(null)){
 					Team tempTeam = new Team(nextLine[1]);
-					seasons.get(j).getLeagues().get(seasons.get(j).getLeagues().size()-1).addTeams(tempTeam);
+					tempTeam.setNumOfWins(Integer.valueOf(nextLine[2]));
+					tempTeam.setNumOfDraws(Integer.valueOf(nextLine[3]));
+					tempTeam.setNumOfLosses(Integer.valueOf(nextLine[4]));
+					seasons.get(j).getLeagues().get(seasons.get(j).getLeagues().size()-1).addTeam(tempTeam);
 				}
 				if(nextLine[0].equals("player") && nextLine[1]!=(null)
 						&& nextLine[2]!=(null) && nextLine[3]!=(null) && nextLine[4]!=(null)

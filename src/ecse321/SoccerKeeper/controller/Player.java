@@ -97,6 +97,34 @@ public class Player {
 		return numOfGoals;
 	}
 
+	public int getNumOfShotsOnTarget() {
+		int numOfGoals=0;
+		if(shots==null)
+			return 0;
+		else {
+			for(Shot shot:shots) {
+				if(shot.equals(Shot.SAVED))
+					numOfGoals++;
+			}
+		}
+		return numOfGoals;
+	}
+
+
+	public int getNumOfShotsOffTarget() {
+		int numOfGoals=0;
+		if(shots==null)
+			return 0;
+		else {
+			for(Shot shot:shots) {
+				if(shot.equals(Shot.MISSED))
+					numOfGoals++;
+			}
+		}
+		return numOfGoals;
+	}
+
+
 	public void setNumOfGoals(int numOfGoals){
 
 		for(int i=0; i<numOfGoals; i++) {

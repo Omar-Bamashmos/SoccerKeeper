@@ -1,5 +1,7 @@
 package ecse321.SoccerKeeper.controller;
 
+//import android.content.Context;
+
 import java.util.ArrayList;
 
 /**
@@ -29,11 +31,28 @@ public class League {
     }
 
     /**
-     * @param team adding teams to the league teams list
+     * @param team adding team to the league teams list
      */
-    public void addTeams(Team team) {
+    public void addTeam(Team team) {
         this.teams.add(team);
     }
+
+    public void removeTeam(Team team){
+        this.teams.remove(team);
+    }
+
+//    public void addTeamByName(String teamName, Context myContext){
+//        Team newTeam = new Team(teamName);
+//        this.addTeam(newTeam);
+//        DataAndroidApp.writingToFile(myContext);
+//        DataAndroidApp.readingFromFile(myContext);
+//    }
+//
+//    public void removeTeamByName(String teamName, Context myContext) {
+//        this.removeTeam(this.getTeamFromName(teamName));
+//        DataAndroidApp.writingToFile(myContext);
+//        DataAndroidApp.readingFromFile(myContext);
+//    }
 
     /**
      * @return list of teams
@@ -65,4 +84,15 @@ public class League {
         return null;
     }
 
+
+    public void resetData() {
+        for (Team team : this.getTeams()) {
+            team.setNumOfWins(0);
+            team.setNumOfDraws(0);
+            team.setNumOfLosses(0);
+            for (Player player : team.getPlayers()) {
+                player.resetDataPlayer();
+            }
+        }
+    }
 }

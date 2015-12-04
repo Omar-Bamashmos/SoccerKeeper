@@ -82,6 +82,19 @@ public class LeagueAnalysis {
 		return topTeams;
 	}
 
+	public Object[][] getTwoDimTopTeamsbyV(){
+        //teamName, win, draw, loss, points
+        Object[][] finalResult = new Object[getTopTeams().length][5];
+        Team[] topTeams = this.getTopTeamsbyV();
+        int i=0;
+        for(Team team: topTeams){
+            String[] tempTeam = {team.getName(), Integer.toString(team.getNumOfWins()), Integer.toString(team.getNumOfDraws()), Integer.toString(team.getNumOfLosses()), Integer.toString(team.getPoints())};
+            finalResult[i] = tempTeam;
+            i++;
+        }
+        return finalResult;
+	}
+
 	/**
 	 * 
 	 * @return topPlayer[]
@@ -150,6 +163,19 @@ public class LeagueAnalysis {
 		}
 		return topPlayers;
 	}
+
+    public Object[][] getTwoDimTopPlayersbyV(){
+    //playerName, jerseyNumber, Goals, Shot on target, shots missed, fouls, yellow, red
+        Object[][] finalResult = new Object[getTopTeams().length][8];
+        Player[] topPlayers = this.getTopPlayersbyV();
+        int i=0;
+        for(Player player: topPlayers){
+            String[] tempTeam = {player.getName(), Integer.toString(player.getJerseyNumber()), Integer.toString(player.getNumOfGoals()), Integer.toString(player.getNumOfShotsOnTarget()), Integer.toString(player.getNumOfShotsOffTarget()), Integer.toString(player.getNumOfFouls()), Integer.toString(player.getNumOfYellow()), Integer.toString(player.getNumOfRed())};
+            finalResult[i] = tempTeam;
+            i++;
+        }
+        return finalResult;
+    }
 
 	/**
 	 * 
